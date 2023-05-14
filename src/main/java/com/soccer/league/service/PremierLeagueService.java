@@ -6,10 +6,6 @@ import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-//import org.json.simple.JSONArray;
-//import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Service;
 
 import com.soccer.league.api.RestTemplateConnection;
@@ -55,19 +51,15 @@ public class PremierLeagueService {
 		return standings; 
 	}
 	
-	public List<FixturesDto> getFixtures(int leagueId) throws IOException, ParseException{
+	public List<FixturesDto> getLastFixtures(int leagueId) throws IOException{
 		
-		String result = restConnection.fixturesConnect(leagueId);
-		
-//		JSONParser parser = new JSONParser();
-
-//		JSONObject obj = (JSONObject) parser.parse(result);
+		String result = restConnection.lastFixturesConnect(leagueId);
 		
 		JSONObject obj = new JSONObject(result);
 		
 		JSONArray responseJson = obj.getJSONArray("response");
 		
-		List<FixturesDto> fixtures = new ArrayList<>();
+		List<FixturesDto> lastFixtures = new ArrayList<>();
 		
 		//결과도출될거
 		for (int i = 0; i < responseJson.length(); i++) {
@@ -80,18 +72,38 @@ public class PremierLeagueService {
 			JSONObject homeJson = (JSONObject) teamsJson.get("home");
 			JSONObject awayJson = (JSONObject) teamsJson.get("away");
 			//경기 결과,점수
-			
-			
-			if((JSONObject) intJson1.get("goals") == null) {
-				FixturesDto fixturesDto = new FixturesDto(fixtureJson, homeJson, awayJson);
-				fixtures.add(fixturesDto);			
-			}else {
-				JSONObject goalsJson = (JSONObject) intJson1.get("goals");
-				FixturesDto fixturesDto = new FixturesDto(fixtureJson, homeJson, awayJson, goalsJson);
-				fixtures.add(fixturesDto);		
-			}
-		}
+			JSONObject goalsJson = (JSONObject) intJson1.get("goals");
+				
+			FixturesDto fixturesDto = new FixturesDto(fixtureJson, homeJson, awayJson, goalsJson);
+			lastFixtures.add(fixturesDto);				
+		}		
+		return lastFixtures;	
+	}
+	
+public List<FixturesDto> getNextFixtures(int leagueId) throws IOException{
 		
-		return fixtures;	
+		String result = restConnection.nextFixturesConnect(leagueId);
+		
+		JSONObject obj = new JSONObject(result);
+		
+		JSONArray responseJson = obj.getJSONArray("response");
+		
+		List<FixturesDto> nextFixtures = new ArrayList<>();
+		
+		//결과도출될거
+		for (int i = 0; i < responseJson.length(); i++) {
+			
+			JSONObject intJson1 = (JSONObject) responseJson.get(i);
+			//경기 날짜
+			JSONObject fixtureJson = (JSONObject) intJson1.get("fixture");
+			//경기 구단
+			JSONObject teamsJson = (JSONObject) intJson1.get("teams");
+			JSONObject homeJson = (JSONObject) teamsJson.get("home");
+			JSONObject awayJson = (JSONObject) teamsJson.get("away");
+				
+			FixturesDto fixturesDto = new FixturesDto(fixtureJson, homeJson, awayJson);
+			nextFixtures.add(fixturesDto);				
+		}		
+		return nextFixtures;	
 	}
 }

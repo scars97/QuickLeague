@@ -35,8 +35,9 @@ public class PremierLeagueController {
 	@GetMapping("/fixtures/{leagueId}")
 	public List<FixturesDto> getFixtures(@PathVariable("leagueId") int leagueId) throws IOException, ParseException{
 		
-		List<FixturesDto> fixtures = premierLeagueService.getFixtures(leagueId);
+		//List<FixturesDto> lastFixtures = premierLeagueService.getLastFixtures(leagueId);
+		List<FixturesDto> nextFixtures = premierLeagueService.getNextFixtures(leagueId);
 		
-		return fixtures;
+		return nextFixtures;
 	}
 }

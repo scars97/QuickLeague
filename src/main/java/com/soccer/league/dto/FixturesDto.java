@@ -28,14 +28,12 @@ public class FixturesDto {
 			JSONObject fixtureJson, 
 			JSONObject homeJson,
 			JSONObject awayJson,
-			JSONObject goalsJson) {
-		
+			JSONObject goalsJson) {		
 		this.date = fixtureJson.getString("date");
 		this.homeTeam = homeJson.getString("name");
 		this.awayTeam = awayJson.getString("name");
 		this.homeResult = goalsJson.getLong("home");
-		this.awayResult = goalsJson.getLong("away");
-		
+		this.awayResult = goalsJson.getLong("away");		
 	}
 	
 	public FixturesDto(JSONObject fixtureJson, 
@@ -44,7 +42,7 @@ public class FixturesDto {
 		this.date = fixtureJson.getString("date");
 		this.homeTeam = homeJson.getString("name");
 		this.awayTeam = awayJson.getString("name");
-		this.homeResult = null;
-		this.awayResult = null;
 	}
+	
+
 }
