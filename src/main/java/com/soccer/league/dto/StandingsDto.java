@@ -5,7 +5,7 @@ import org.json.JSONObject;
 import lombok.Getter;
 
 @Getter
-public class StandingDto {
+public class StandingsDto {
 
 	private int rank;
 	private String teamName;
@@ -15,7 +15,7 @@ public class StandingDto {
 	private int draw;
 	private int lose;
 	
-	public StandingDto(JSONObject intJson, JSONObject teamJson, JSONObject allJson) {
+	public StandingsDto(JSONObject intJson, JSONObject teamJson, JSONObject allJson) {
 		this.rank = intJson.getInt("rank");
 		this.teamName = teamJson.getString("name");
 		this.points = intJson.getInt("points");

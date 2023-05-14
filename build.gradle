@@ -30,6 +30,7 @@ dependencies {
 	
 	//Json
 	implementation 'com.mashape.unirest:unirest-java:1.4.9'
+	implementation 'com.googlecode.json-simple:json-simple:1.1.1'
 	
 	//Swagger
 	implementation 'io.springfox:springfox-swagger2:2.9.2'

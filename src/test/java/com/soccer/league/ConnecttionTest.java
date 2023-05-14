@@ -3,9 +3,17 @@ package com.soccer.league;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.IOException;
+import java.net.URI;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.RequestEntity;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
+
+import com.soccer.league.api.ApiKey;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -14,23 +22,38 @@ import okhttp3.Response;
 @SpringBootTest
 public class ConnecttionTest {
 	
+	@Autowired
+	ApiKey apiKey;
+	
 	@Test
 	void connection() throws IOException {
 		
-		OkHttpClient client = new OkHttpClient();
-
-		Request request = new Request.Builder()
-				.url("https://api-football-v1.p.rapidapi.com/v3/standings?league=39&season=2022").get()
-				.addHeader("X-RapidAPI-Key", "00dff05ec1msh5a3fcefada34491p12c058jsn7a0d02c8ef99")
-				.addHeader("X-RapidAPI-Host", "api-football-v1.p.rapidapi.com").build();
-
-		Response response = client.newCall(request).execute();
+		String url = "https://api-football-v1.p.rapidapi.com/";
+		int season = 2022;
 		
-		String result = response.body().string();
+		URI uri = UriComponentsBuilder.fromHttpUrl(url)
+				.path("v3/fixtures")
+				.queryParam("league", 39)
+				.queryParam("season", season)
+				.queryParam("from", "2023-05-06")
+				.queryParam("to", "2023-05-14")
+				.queryParam("timezone", "Asia/seoul")
+				.encode()
+				.build()
+				.toUri();
 		
-		if (response.isSuccessful()) {
-			assertThat(result).isNotNull();
-		}
+		RestTemplate restTemplate = new RestTemplate();
+
+		RequestEntity<Void> req = RequestEntity.get(uri)
+				.header("X-RapidAPI-Key", apiKey.getApiKey())
+				.header("X-RapidAPI-Host", "api-football-v1.p.rapidapi.com")
+				.build();
+
+		ResponseEntity<String> result = restTemplate.exchange(req, String.class);
+		
+
+		assertThat(result).isNotNull();
+		
 		
 	}
 }
