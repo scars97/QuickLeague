@@ -9,21 +9,23 @@ import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
 import com.soccer.league.api.Connection;
+import com.soccer.league.api.RestTemplateConnection;
 import com.soccer.league.dto.StandingDto;
 
 @Service
 public class PremierLeagueService {
 	
-	private final Connection connection;
+	private final RestTemplateConnection restConnection;
 	
-	public PremierLeagueService(Connection connection) {
-		this.connection = connection;
+	//생성자 주입
+	public PremierLeagueService(RestTemplateConnection restConnection) {
+		this.restConnection = restConnection;
 	}
 
 	public List<StandingDto> getStandings(int leagueId) throws IOException{
 
 		// API Connection
-		String result = connection.standings(leagueId);
+		String result = restConnection.restConnection(leagueId);
 		
 		// Json 변환
 		JSONObject json = new JSONObject(result);
