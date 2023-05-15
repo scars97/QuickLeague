@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+
+<style>
+table, th, td {
+  border: 1px solid black;
+}
+</style>
+<body>
+
+	<table>
+		<thead>
+			<tr>
+				<th>rank</th>
+				<th>Team</th>
+				<th>Points</th>
+				<th>played</th>
+				<th>Win</th>
+				<th>Draw</th>
+				<th>Lose</th>
+			</tr>
+		</thead>
+
+		<tbody>
+			<tr th:each="standings : ${standings}">
+				<td th:text="${standings.rank}"></td>
+				<td th:text="${standings.teamName}"></td>
+				<td th:text="${standings.points}"></td>
+				<td th:text="${standings.played}"></td>
+				<td th:text="${standings.win}"></td>
+				<td th:text="${standings.draw}"></td>
+				<td th:text="${standings.lose}"></td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>

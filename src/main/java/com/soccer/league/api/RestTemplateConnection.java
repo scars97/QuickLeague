@@ -2,6 +2,8 @@ package com.soccer.league.api;
 
 import java.io.IOException;
 import java.net.URI;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
@@ -49,12 +51,19 @@ public class RestTemplateConnection {
 		String url = "https://api-football-v1.p.rapidapi.com/";
 		int season = 2022;
 		
+		LocalDateTime time = LocalDateTime.now();
+
+		String nowTime = time.format(
+	            DateTimeFormatter.ofPattern("yyyy-MM-dd"));	
+		String lastTime = time.minusWeeks(1).format(
+	            DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+		
 		URI uri = UriComponentsBuilder.fromHttpUrl(url)
 				.path("v3/fixtures")
 				.queryParam("league", leagueId)
 				.queryParam("season", season)
-				.queryParam("from", "2023-05-06")
-				.queryParam("to", "2023-05-14")
+				.queryParam("from", lastTime)
+				.queryParam("to", nowTime)
 				.queryParam("timezone", "Asia/seoul")
 				.encode()
 				.build()

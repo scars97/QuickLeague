@@ -24,6 +24,7 @@ public class FixturesDto {
 	private Long homeResult;
 	private Long awayResult;
 	
+	//지난 경기
 	public FixturesDto( 
 			JSONObject fixtureJson, 
 			JSONObject homeJson,
@@ -31,11 +32,13 @@ public class FixturesDto {
 			JSONObject goalsJson) {		
 		this.date = fixtureJson.getString("date");
 		this.homeTeam = homeJson.getString("name");
-		this.awayTeam = awayJson.getString("name");
+		this.awayTeam = awayJson.getString("name");	
 		this.homeResult = goalsJson.getLong("home");
-		this.awayResult = goalsJson.getLong("away");		
+		this.awayResult = goalsJson.getLong("away");			
+		
 	}
 	
+	//다음 경기
 	public FixturesDto(JSONObject fixtureJson, 
 			JSONObject homeJson,
 			JSONObject awayJson) {
