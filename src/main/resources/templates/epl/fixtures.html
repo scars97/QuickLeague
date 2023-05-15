@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>경기 일정</title>
+
+<style>
+table, th, td {
+	border: 1px solid black;
+}
+</style>
+</head>
+<body>
+
+	<table>
+	
+		<tbody th:each="lastfixtures : ${lastfixtures}">
+			<tr>
+				<td th:text="${lastfixtures.date}"></td>
+			</tr>
+			<tr>
+				<td>[[${lastfixtures.homeTeam}]] [[${lastfixtures.homeResult}]] : 
+					[[${lastfixtures.awayResult}]] [[${lastfixtures.awayTeam}]]</td>
+			</tr>
+		</tbody>
+		
+		<tbody th:each="nextfixtures : ${nextfixtures}">
+			<tr>
+				<td th:text="${nextfixtures.date}"></td>
+			</tr>
+			<tr>
+				<td>[[${nextfixtures.homeTeam}]] VS [[${nextfixtures.awayTeam}]]</td>
+			</tr>
+		</tbody>
+		
+	</table>
+</body>
+</html>
