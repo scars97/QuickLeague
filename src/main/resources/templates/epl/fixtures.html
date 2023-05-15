@@ -5,9 +5,21 @@
 <title>경기 일정</title>
 
 <style>
-table, th, td {
+table{
 	border: 1px solid black;
 }
+.DateLine{
+	border-bottom: 1px solid black;
+}
+.TimeLine{
+	border-right : 1px solid black;
+	border-bottom : 1px solid black; 
+}
+.ResultLine{
+	border-bottom : 1px solid black;
+}
+
+
 </style>
 </head>
 <body>
@@ -15,21 +27,24 @@ table, th, td {
 	<table>
 	
 		<tbody th:each="lastfixtures : ${lastfixtures}">
+		
 			<tr>
-				<td th:text="${lastfixtures.date}"></td>
+				<td class="DateLine" colspan="2" th:text="${lastfixtures.date}"></td>
 			</tr>
 			<tr>
-				<td>[[${lastfixtures.homeTeam}]] [[${lastfixtures.homeResult}]] : 
+				<td class="TimeLine" th:text="${lastfixtures.time}"></td>
+				<td class="ResultLine">[[${lastfixtures.homeTeam}]] [[${lastfixtures.homeResult}]] : 
 					[[${lastfixtures.awayResult}]] [[${lastfixtures.awayTeam}]]</td>
 			</tr>
 		</tbody>
 		
 		<tbody th:each="nextfixtures : ${nextfixtures}">
 			<tr>
-				<td th:text="${nextfixtures.date}"></td>
+				<td class="DateLine" colspan="2" th:text="${nextfixtures.date}"></td>
 			</tr>
 			<tr>
-				<td>[[${nextfixtures.homeTeam}]] VS [[${nextfixtures.awayTeam}]]</td>
+				<td class="TimeLine" th:text="${nextfixtures.time}"></td>
+				<td class="ResultLine">[[${nextfixtures.homeTeam}]] VS [[${nextfixtures.awayTeam}]]</td>
 			</tr>
 		</tbody>
 		

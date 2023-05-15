@@ -15,13 +15,13 @@ table, th, td {
 	<table>
 		<thead>
 			<tr>
-				<th>rank</th>
-				<th>Team</th>
-				<th>Points</th>
-				<th>played</th>
-				<th>Win</th>
-				<th>Draw</th>
-				<th>Lose</th>
+				<th>순위</th>
+				<th>팀명</th>
+				<th>경기</th>
+				<th>승점</th>
+				<th>승</th>
+				<th>무</th>
+				<th>패</th>
 			</tr>
 		</thead>
 
@@ -29,8 +29,8 @@ table, th, td {
 			<tr th:each="standings : ${standings}">
 				<td th:text="${standings.rank}"></td>
 				<td th:text="${standings.teamName}"></td>
-				<td th:text="${standings.points}"></td>
 				<td th:text="${standings.played}"></td>
+				<td th:text="${standings.points}"></td>
 				<td th:text="${standings.win}"></td>
 				<td th:text="${standings.draw}"></td>
 				<td th:text="${standings.lose}"></td>

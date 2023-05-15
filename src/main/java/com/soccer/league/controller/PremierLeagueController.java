@@ -1,9 +1,9 @@
 package com.soccer.league.controller;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.List;
 
-import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

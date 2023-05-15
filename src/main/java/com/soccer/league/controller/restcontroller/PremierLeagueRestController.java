@@ -1,13 +1,12 @@
-package com.soccer.league.controller;
+package com.soccer.league.controller.restcontroller;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.List;
 
-import org.json.simple.parser.ParseException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.soccer.league.dto.FixturesDto;
@@ -41,7 +40,7 @@ public class PremierLeagueRestController {
 	}
 	
 	@GetMapping("/nextfixtures/{leagueId}")
-	public List<FixturesDto> getNextFixtures(@PathVariable("leagueId") int leagueId) throws IOException{
+	public List<FixturesDto> getNextFixtures(@PathVariable("leagueId") int leagueId) throws IOException, ParseException{
 		
 		List<FixturesDto> nextFixtures = premierLeagueService.getNextFixtures(leagueId);
 		
