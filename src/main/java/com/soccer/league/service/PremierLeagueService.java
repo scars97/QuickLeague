@@ -9,6 +9,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
+import com.soccer.league.api.OkHttpConnection;
 import com.soccer.league.api.RestTemplateConnection;
 import com.soccer.league.dto.FixturesDto;
 import com.soccer.league.dto.StandingsDto;
@@ -16,17 +17,21 @@ import com.soccer.league.dto.StandingsDto;
 @Service
 public class PremierLeagueService {
 
-	private final RestTemplateConnection restConnection;
+//	private final RestTemplateConnection restConnection;
+	private final OkHttpConnection okHttpConnection;
 
 	// 생성자 주입
-	public PremierLeagueService(RestTemplateConnection restConnection) {
-		this.restConnection = restConnection;
+//	public PremierLeagueService(RestTemplateConnection restConnection) {
+//		this.restConnection = restConnection;
+//	}
+	public PremierLeagueService(OkHttpConnection okHttpConnection) {
+		this.okHttpConnection = okHttpConnection;
 	}
 
 	public List<StandingsDto> getStandings(int leagueId) throws IOException {
 
 		// API Connection
-		String result = restConnection.standingsConnect(leagueId);
+		String result = okHttpConnection.standingsConnect(leagueId);
 
 		// Json 변환
 		JSONObject json = new JSONObject(result);
