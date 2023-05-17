@@ -9,29 +9,29 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
-import com.soccer.league.api.OkHttpConnection;
 import com.soccer.league.api.RestTemplateConnection;
 import com.soccer.league.dto.FixturesDto;
 import com.soccer.league.dto.StandingsDto;
+import com.soccer.league.dto.TopScorersDto;
 
 @Service
 public class PremierLeagueService {
 
-//	private final RestTemplateConnection restConnection;
-	private final OkHttpConnection okHttpConnection;
+	private final RestTemplateConnection restConnection;
+//	private final OkHttpConnection okHttpConnection;
 
 	// 생성자 주입
-//	public PremierLeagueService(RestTemplateConnection restConnection) {
-//		this.restConnection = restConnection;
-//	}
-	public PremierLeagueService(OkHttpConnection okHttpConnection) {
-		this.okHttpConnection = okHttpConnection;
+	public PremierLeagueService(RestTemplateConnection restConnection) {
+		this.restConnection = restConnection;
 	}
+//	public PremierLeagueService(OkHttpConnection okHttpConnection) {
+//		this.okHttpConnection = okHttpConnection;
+//	}
 
 	public List<StandingsDto> getStandings(int leagueId) throws IOException {
 
 		// API Connection
-		String result = okHttpConnection.standingsConnect(leagueId);
+		String result = restConnection.standingsConnect(leagueId);
 
 		// Json 변환
 		JSONObject json = new JSONObject(result);
@@ -111,5 +111,32 @@ public class PremierLeagueService {
 			nextFixtures.add(fixturesDto);
 		}
 		return nextFixtures;
+	}
+	
+	public List<TopScorersDto> getTopScorers(int leagueId){
+		
+		String result = restConnection.topScorers(leagueId);
+		
+		JSONObject obj = new JSONObject(result);
+
+		JSONArray responseJson = obj.getJSONArray("response");
+		
+		List<TopScorersDto> topScorers = new ArrayList<>();
+		
+		for (int i = 0; i < responseJson.length(); i++) {
+			JSONObject intJson = (JSONObject) responseJson.get(i);
+			JSONObject playerJson = (JSONObject) intJson.get("player");
+			
+			JSONArray statisticsJson = intJson.getJSONArray("statistics");
+			JSONObject intJson2 = (JSONObject) statisticsJson.get(0);
+			JSONObject teamJson = (JSONObject) intJson2.get("team");
+			JSONObject gamesJson = (JSONObject) intJson2.get("games");
+			JSONObject goalsJson = (JSONObject) intJson2.get("goals");
+		
+			TopScorersDto topScorersDto = new TopScorersDto(playerJson,teamJson,gamesJson,goalsJson);
+			topScorers.add(topScorersDto);
+		}
+		
+		return topScorers;
 	}
 }

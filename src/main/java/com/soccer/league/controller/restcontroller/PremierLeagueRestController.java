@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.soccer.league.dto.FixturesDto;
 import com.soccer.league.dto.StandingsDto;
+import com.soccer.league.dto.TopScorersDto;
 import com.soccer.league.service.PremierLeagueService;
 
 @RestController
@@ -45,5 +46,13 @@ public class PremierLeagueRestController {
 		List<FixturesDto> nextFixtures = premierLeagueService.getNextFixtures(leagueId);
 		
 		return nextFixtures;
+	}
+	
+	@GetMapping("/topscorers/{leagueId}")
+	public List<TopScorersDto> getTopScorers(@PathVariable("leagueId") int leagueId){
+		
+		List<TopScorersDto> topScorers = premierLeagueService.getTopScorers(leagueId);
+		
+		return topScorers;
 	}
 }
