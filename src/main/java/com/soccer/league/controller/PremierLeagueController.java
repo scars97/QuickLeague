@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.soccer.league.dto.FixturesDto;
 import com.soccer.league.dto.StandingsDto;
+import com.soccer.league.dto.TopScorersDto;
 import com.soccer.league.service.PremierLeagueService;
 
 @Controller
@@ -33,8 +34,8 @@ public class PremierLeagueController {
 		return "epl/standings";
 	}
 	
-	@GetMapping("/fixtures/{leagueId}")
-	public String getFixtures(@PathVariable("leagueId") int leagueId, Model model) throws IOException, ParseException{
+	@GetMapping("/fixtures/{id}")
+	public String getFixtures(@PathVariable("id") int leagueId, Model model) throws IOException, ParseException{
 		
 		List<FixturesDto> lastFixtures = premierLeagueService.getLastFixtures(leagueId);
 		List<FixturesDto> nextFixtures = premierLeagueService.getNextFixtures(leagueId);
@@ -42,5 +43,14 @@ public class PremierLeagueController {
 		model.addAttribute("lastfixtures",lastFixtures);
 		model.addAttribute("nextfixtures",nextFixtures);
 		return "epl/fixtures";
+	}
+	
+	@GetMapping("/topscorers/{id}")
+	public String getTopScorers(@PathVariable("id") int leagueId, Model model) {
+		
+		List<TopScorersDto> topscorers = premierLeagueService.getTopScorers(leagueId);
+		
+		model.addAttribute("topscorers", topscorers);
+		return "epl/topscorers";
 	}
 }

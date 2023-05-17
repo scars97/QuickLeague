@@ -24,32 +24,32 @@ public class PremierLeagueRestController {
 		this.premierLeagueService = premierLeagueService;
 	}
 	
-	@GetMapping("/standings/{leagueId}")
-	public List<StandingsDto> getStandings(@PathVariable("leagueId") int leaguId ) throws IOException {
+	@GetMapping("/standings/{id}")
+	public List<StandingsDto> getStandings(@PathVariable("id") int leaguId ) throws IOException {
 		
 		List<StandingsDto> standings = premierLeagueService.getStandings(leaguId);
 		
 		return standings;
 	}
 	
-	@GetMapping("/lastfixtures/{leagueId}")
-	public List<FixturesDto> getLastFixtures(@PathVariable("leagueId") int leagueId) throws IOException, ParseException{
+	@GetMapping("/lastfixtures/{id}")
+	public List<FixturesDto> getLastFixtures(@PathVariable("id") int leagueId) throws IOException, ParseException{
 		
 		List<FixturesDto> lastFixtures = premierLeagueService.getLastFixtures(leagueId);
 		
 		return lastFixtures;
 	}
 	
-	@GetMapping("/nextfixtures/{leagueId}")
-	public List<FixturesDto> getNextFixtures(@PathVariable("leagueId") int leagueId) throws IOException, ParseException{
+	@GetMapping("/nextfixtures/{id}")
+	public List<FixturesDto> getNextFixtures(@PathVariable("id") int leagueId) throws IOException, ParseException{
 		
 		List<FixturesDto> nextFixtures = premierLeagueService.getNextFixtures(leagueId);
 		
 		return nextFixtures;
 	}
 	
-	@GetMapping("/topscorers/{leagueId}")
-	public List<TopScorersDto> getTopScorers(@PathVariable("leagueId") int leagueId){
+	@GetMapping("/topscorers/{id}")
+	public List<TopScorersDto> getTopScorers(@PathVariable("id") int leagueId){
 		
 		List<TopScorersDto> topScorers = premierLeagueService.getTopScorers(leagueId);
 		

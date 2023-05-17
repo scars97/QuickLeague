@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>선수 순위</title>
+
+<style>
+table, th, td {
+  border: 1px solid black;
+}
+</style>
+</head>
+<body>
+
+	<table>
+		<thead>
+			<tr>
+				<th>순위</th>
+				<th>선수명</th>
+				<th>팀명</th>
+				<th>경기수</th>
+				<th>득점</th>
+			</tr>
+		</thead>
+
+		<tbody>
+			<tr th:each="topscorers, stat : ${topscorers}">
+				<td th:text="|${stat.count}|"></td>
+				<td th:text="${topscorers.playerName}"></td>
+				<td th:text="${topscorers.teamName}"></td>
+				<td th:text="${topscorers.games}"></td>
+				<td th:text="${topscorers.goals}"></td>
+			</tr>
+		</tbody>
+	</table>
+	
+</body>
+</html>
