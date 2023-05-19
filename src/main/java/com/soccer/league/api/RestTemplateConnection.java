@@ -5,20 +5,23 @@ import java.net.URI;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.soccer.league.config.RestTemplateConfig;
+
+import lombok.RequiredArgsConstructor;
+
 @Component
+@RequiredArgsConstructor
 public class RestTemplateConnection {
 
 	private final ApiKey apiKey;
-
-	public RestTemplateConnection(ApiKey apiKey) {
-		this.apiKey = apiKey;
-	}
+	private final RestTemplate restTemplate;
 
 	public String standingsConnect(int leagueId) {
 
@@ -32,9 +35,7 @@ public class RestTemplateConnection {
 				.queryParam("season", season)
 				.encode()
 				.build()
-				.toUri();
-
-		RestTemplate restTemplate = new RestTemplate();
+				.toUri();	
 
 		RequestEntity<Void> req = RequestEntity
 				.get(uri)
@@ -70,8 +71,6 @@ public class RestTemplateConnection {
 				.build()
 				.toUri();
 
-		RestTemplate restTemplate = new RestTemplate();
-
 		RequestEntity<Void> req = RequestEntity
 				.get(uri)
 				.header("X-RapidAPI-Key", apiKey.getApiKey())
@@ -97,8 +96,6 @@ public class RestTemplateConnection {
 				.build()
 				.toUri();
 
-		RestTemplate restTemplate = new RestTemplate();
-
 		RequestEntity<Void> req = RequestEntity
 				.get(uri)
 				.header("X-RapidAPI-Key", apiKey.getApiKey())
@@ -123,8 +120,6 @@ public class RestTemplateConnection {
 				.encode()
 				.build()
 				.toUri();
-
-		RestTemplate restTemplate = new RestTemplate();
 
 		RequestEntity<Void> req = RequestEntity
 				.get(uri)

@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import org.springframework.stereotype.Component;
 
+import okhttp3.ConnectionPool;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -18,9 +19,14 @@ public class OkHttpConnection {
 	}
 	
 	//구단 순위
-	public String standingsConnect(int leagueId) throws IOException{
+	public String standingsConnect(int leagueId){
 			
-		OkHttpClient client = new OkHttpClient();
+		ConnectionPool conn = new ConnectionPool();
+		
+		OkHttpClient client = new OkHttpClient()
+				.newBuilder()
+				.connectionPool(conn)
+				.build();
 	
 		Request request = new Request.Builder()
 				.url("https://api-football-v1.p.rapidapi.com/v3/standings?league="+ leagueId + "&season=2022")
@@ -29,11 +35,17 @@ public class OkHttpConnection {
 				.addHeader("X-RapidAPI-Host", "api-football-v1.p.rapidapi.com")
 				.build();
 	
-		Response response = client.newCall(request).execute();
-	
-		String result = response.body().string();
+		try (Response response = client.newCall(request).execute()) {
+	        String result = response.body().string();
+	        return result; 
+	    }catch(IOException e) {
+	    	e.printStackTrace();
+	    }finally {
+	    
+	    	conn.evictAll();
+	    }
+		return null;
 		
-		return result;
 	}
 	
 	
