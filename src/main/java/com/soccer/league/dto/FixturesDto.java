@@ -56,6 +56,7 @@ public class FixturesDto {
 		this.awayTeam = awayJson.getString("name");
 	}
 	
+	//날짜 포맷
 	private List<String> dateFormat(JSONObject fixtureJson) throws ParseException {
 		String strDate = fixtureJson.getString("date");
 		

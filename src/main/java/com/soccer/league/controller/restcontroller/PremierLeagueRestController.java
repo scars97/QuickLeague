@@ -12,22 +12,21 @@ import org.springframework.web.bind.annotation.RestController;
 import com.soccer.league.dto.FixturesDto;
 import com.soccer.league.dto.StandingsDto;
 import com.soccer.league.dto.TopScorersDto;
-import com.soccer.league.service.PremierLeagueService;
+import com.soccer.league.service.LeagueService;
+
+import lombok.RequiredArgsConstructor;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/rest/epl")
 public class PremierLeagueRestController {
 
-	private final PremierLeagueService premierLeagueService;
-	
-	public PremierLeagueRestController(PremierLeagueService premierLeagueService) {
-		this.premierLeagueService = premierLeagueService;
-	}
+	private final LeagueService leagueService;
 	
 	@GetMapping("/standings/{id}")
 	public List<StandingsDto> getStandings(@PathVariable("id") int leaguId ) throws IOException {
 		
-		List<StandingsDto> standings = premierLeagueService.getStandings(leaguId);
+		List<StandingsDto> standings = leagueService.getStandings(leaguId);
 		
 		return standings;
 	}
@@ -35,7 +34,7 @@ public class PremierLeagueRestController {
 	@GetMapping("/lastfixtures/{id}")
 	public List<FixturesDto> getLastFixtures(@PathVariable("id") int leagueId) throws IOException, ParseException{
 		
-		List<FixturesDto> lastFixtures = premierLeagueService.getLastFixtures(leagueId);
+		List<FixturesDto> lastFixtures = leagueService.getLastFixtures(leagueId);
 		
 		return lastFixtures;
 	}
@@ -43,7 +42,7 @@ public class PremierLeagueRestController {
 	@GetMapping("/nextfixtures/{id}")
 	public List<FixturesDto> getNextFixtures(@PathVariable("id") int leagueId) throws IOException, ParseException{
 		
-		List<FixturesDto> nextFixtures = premierLeagueService.getNextFixtures(leagueId);
+		List<FixturesDto> nextFixtures = leagueService.getNextFixtures(leagueId);
 		
 		return nextFixtures;
 	}
@@ -51,7 +50,7 @@ public class PremierLeagueRestController {
 	@GetMapping("/topscorers/{id}")
 	public List<TopScorersDto> getTopScorers(@PathVariable("id") int leagueId){
 		
-		List<TopScorersDto> topScorers = premierLeagueService.getTopScorers(leagueId);
+		List<TopScorersDto> topScorers = leagueService.getTopScorers(leagueId);
 		
 		return topScorers;
 	}

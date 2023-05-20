@@ -13,22 +13,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.soccer.league.dto.FixturesDto;
 import com.soccer.league.dto.StandingsDto;
 import com.soccer.league.dto.TopScorersDto;
-import com.soccer.league.service.PremierLeagueService;
+import com.soccer.league.service.LeagueService;
+
+import lombok.RequiredArgsConstructor;
 
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("/epl")
 public class PremierLeagueController {
 
-	private final PremierLeagueService premierLeagueService;
-
-	public PremierLeagueController(PremierLeagueService premierLeagueService) {
-		this.premierLeagueService = premierLeagueService;
-	}
+	private final LeagueService leagueService;
 
 	@GetMapping("/standings/{id}")
 	public String getStandings(@PathVariable("id") int leaguId, Model model) throws IOException {
 
-		List<StandingsDto> standings = premierLeagueService.getStandings(leaguId);
+		List<StandingsDto> standings = leagueService.getStandings(leaguId);
 
 		model.addAttribute("standings",standings);
 		return "epl/standings";
@@ -37,8 +36,8 @@ public class PremierLeagueController {
 	@GetMapping("/fixtures/{id}")
 	public String getFixtures(@PathVariable("id") int leagueId, Model model) throws IOException, ParseException{
 		
-		List<FixturesDto> lastFixtures = premierLeagueService.getLastFixtures(leagueId);
-		List<FixturesDto> nextFixtures = premierLeagueService.getNextFixtures(leagueId);
+		List<FixturesDto> lastFixtures = leagueService.getLastFixtures(leagueId);
+		List<FixturesDto> nextFixtures = leagueService.getNextFixtures(leagueId);
 		
 		model.addAttribute("lastfixtures",lastFixtures);
 		model.addAttribute("nextfixtures",nextFixtures);
@@ -48,7 +47,7 @@ public class PremierLeagueController {
 	@GetMapping("/topscorers/{id}")
 	public String getTopScorers(@PathVariable("id") int leagueId, Model model) {
 		
-		List<TopScorersDto> topscorers = premierLeagueService.getTopScorers(leagueId);
+		List<TopScorersDto> topscorers = leagueService.getTopScorers(leagueId);
 		
 		model.addAttribute("topscorers", topscorers);
 		return "epl/topscorers";

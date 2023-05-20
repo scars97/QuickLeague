@@ -9,27 +9,22 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
-import com.soccer.league.api.OkHttpConnection;
 import com.soccer.league.api.RestTemplateConnection;
 import com.soccer.league.dto.FixturesDto;
 import com.soccer.league.dto.StandingsDto;
 import com.soccer.league.dto.TopScorersDto;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
-public class PremierLeagueService {
+@RequiredArgsConstructor
+public class LeagueService {
 
 	private final RestTemplateConnection restConnection;
 //	private final OkHttpConnection okHttpConnection;
 
-	// 생성자 주입
-	public PremierLeagueService(RestTemplateConnection restConnection) {
-		this.restConnection = restConnection;
-	}
-//	public PremierLeagueService(OkHttpConnection okHttpConnection) {
-//		this.okHttpConnection = okHttpConnection;
-//	}
-
-	public List<StandingsDto> getStandings(int leagueId) throws IOException {
+	//구단 순위
+	public List<StandingsDto> getStandings(int leagueId) {
 
 		// API Connection
 		String result = restConnection.standingsConnect(leagueId);
@@ -58,6 +53,7 @@ public class PremierLeagueService {
 		return standings;
 	}
 
+	//지난 경기 일정
 	public List<FixturesDto> getLastFixtures(int leagueId) throws IOException, ParseException {
 
 		String result = restConnection.lastFixturesConnect(leagueId);
@@ -87,6 +83,7 @@ public class PremierLeagueService {
 		return lastFixtures;
 	}
 
+	//다음 경기 일정
 	public List<FixturesDto> getNextFixtures(int leagueId) throws IOException, ParseException {
 
 		String result = restConnection.nextFixturesConnect(leagueId);
@@ -114,6 +111,7 @@ public class PremierLeagueService {
 		return nextFixtures;
 	}
 	
+	//선수 순위
 	public List<TopScorersDto> getTopScorers(int leagueId){
 		
 		String result = restConnection.topScorers(leagueId);
