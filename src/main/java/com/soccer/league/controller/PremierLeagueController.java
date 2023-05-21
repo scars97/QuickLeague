@@ -2,6 +2,8 @@ package com.soccer.league.controller;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -37,10 +39,19 @@ public class PremierLeagueController {
 	public String getFixtures(@PathVariable("id") int leagueId, Model model) throws IOException, ParseException{
 		
 		List<FixturesDto> lastFixtures = leagueService.getLastFixtures(leagueId);
-		List<FixturesDto> nextFixtures = leagueService.getNextFixtures(leagueId);
+		//List<FixturesDto> nextFixtures = leagueService.getNextFixtures(leagueId);
+		
+		List<String> dateList = new ArrayList<>();
+		
+		for (int i = 0; i < lastFixtures.size(); i++) {
+			String date = lastFixtures.get(i).getDate();
+			dateList.add(date);
+		}
+		
+		Collections.sort(dateList);
 		
 		model.addAttribute("lastfixtures",lastFixtures);
-		model.addAttribute("nextfixtures",nextFixtures);
+		//model.addAttribute("nextfixtures",nextFixtures);
 		return "epl/fixtures";
 	}
 	

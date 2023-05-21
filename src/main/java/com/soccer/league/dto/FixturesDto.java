@@ -11,8 +11,10 @@ import org.json.JSONObject;
 //import org.json.simple.JSONObject;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
+@NoArgsConstructor
 public class FixturesDto {
 
 	//경기 날짜, 시간
@@ -28,8 +30,8 @@ public class FixturesDto {
 //	private String awayLogo;
 	
 	//경기 점수,결과
-	private Long homeResult;
-	private Long awayResult;
+	private String homeResult;
+	private String awayResult;
 	
 	//지난 경기
 	public FixturesDto( 
@@ -40,9 +42,13 @@ public class FixturesDto {
 		this.date = dateFormat(fixtureJson).get(0);
 		this.time = dateFormat(fixtureJson).get(1);
 		this.homeTeam = homeJson.getString("name");
-		this.awayTeam = awayJson.getString("name");	
-		this.homeResult = goalsJson.getLong("home");
-		this.awayResult = goalsJson.getLong("away");			
+		this.awayTeam = awayJson.getString("name");
+		String result = goalsJson.get("home").toString();
+//		int intResult = Integer.parseInt(result);
+		this.homeResult = result;
+		String result2 = goalsJson.get("away").toString();
+//		int intResult2 = Integer.parseInt(result2);
+		this.awayResult = result2;		
 		
 	}
 	
@@ -62,16 +68,16 @@ public class FixturesDto {
 		
 		SimpleDateFormat dtFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 		SimpleDateFormat newDtFormat = new SimpleDateFormat("MM.dd. (E)");
-		SimpleDateFormat newDtFormat2 = new SimpleDateFormat("HH:mm");
+		SimpleDateFormat newTmFormat = new SimpleDateFormat("HH:mm");
 		// String 타입을 Date 타입으로 변환
 		Date formatDate = dtFormat.parse(strDate);
 		// Date타입의 변수를 새롭게 지정한 포맷으로 변환
 		String returnDate = newDtFormat.format(formatDate);
-		String returnDate2 = newDtFormat2.format(formatDate);
+		String returnTime = newTmFormat.format(formatDate);
 		
 		List<String> returnList = new ArrayList<>();
 		returnList.add(returnDate);
-		returnList.add(returnDate2);
+		returnList.add(returnTime);
 		
 		return returnList;
 	}

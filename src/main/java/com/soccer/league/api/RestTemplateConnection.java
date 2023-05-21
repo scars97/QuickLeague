@@ -5,14 +5,11 @@ import java.net.URI;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
-
-import com.soccer.league.config.RestTemplateConfig;
 
 import lombok.RequiredArgsConstructor;
 
@@ -21,7 +18,6 @@ import lombok.RequiredArgsConstructor;
 public class RestTemplateConnection {
 
 	private final ApiKey apiKey;
-	private final RestTemplate restTemplate;
 
 	public String standingsConnect(int leagueId) {
 
@@ -42,6 +38,8 @@ public class RestTemplateConnection {
 				.header("X-RapidAPI-Key", apiKey.getApiKey())
 				.header("X-RapidAPI-Host", "api-football-v1.p.rapidapi.com")
 				.build();
+		
+		RestTemplate restTemplate = new RestTemplate();
 
 		ResponseEntity<String> result = restTemplate.exchange(req, String.class);
 
@@ -56,7 +54,7 @@ public class RestTemplateConnection {
 
 		LocalDateTime time = LocalDateTime.now();
 
-		String nowTime = time.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+		String nowTime = time.plusWeeks(1).format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 		String lastTime = time.minusWeeks(1).format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
 		URI uri = UriComponentsBuilder
@@ -64,8 +62,8 @@ public class RestTemplateConnection {
 				.path("v3/fixtures")
 				.queryParam("league", leagueId)
 				.queryParam("season", season)
-				.queryParam("from", lastTime)
-				.queryParam("to", nowTime)
+				.queryParam("from", "2023-05-14")
+				.queryParam("to", "2023-05-21")
 				.queryParam("timezone", "Asia/seoul")
 				.encode()
 				.build()
@@ -76,6 +74,8 @@ public class RestTemplateConnection {
 				.header("X-RapidAPI-Key", apiKey.getApiKey())
 				.header("X-RapidAPI-Host", "api-football-v1.p.rapidapi.com")
 				.build();
+		
+		RestTemplate restTemplate = new RestTemplate();
 
 		ResponseEntity<String> result = restTemplate.exchange(req, String.class);
 
@@ -101,6 +101,8 @@ public class RestTemplateConnection {
 				.header("X-RapidAPI-Key", apiKey.getApiKey())
 				.header("X-RapidAPI-Host", "api-football-v1.p.rapidapi.com")
 				.build();
+		
+		RestTemplate restTemplate = new RestTemplate();
 
 		ResponseEntity<String> result = restTemplate.exchange(req, String.class);
 
@@ -126,6 +128,8 @@ public class RestTemplateConnection {
 				.header("X-RapidAPI-Key", apiKey.getApiKey())
 				.header("X-RapidAPI-Host", "api-football-v1.p.rapidapi.com")
 				.build();
+		
+		RestTemplate restTemplate = new RestTemplate();
 
 		ResponseEntity<String> result = restTemplate.exchange(req, String.class);
 
