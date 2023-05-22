@@ -9,6 +9,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
+import com.soccer.league.api.OkHttpConnection;
 import com.soccer.league.api.RestTemplateConnection;
 import com.soccer.league.dto.FixturesDto;
 import com.soccer.league.dto.StandingsDto;
@@ -24,33 +25,34 @@ public class LeagueService {
 //	private final OkHttpConnection okHttpConnection;
 
 	//구단 순위
-	public List<StandingsDto> getStandings(int leagueId) {
+	public List<StandingsDto> getStandings(int leagueId) throws IOException {
 
 		// API Connection
 		String result = restConnection.standingsConnect(leagueId);
-
+			
 		// Json 변환
 		JSONObject json = new JSONObject(result);
-
+	
 		JSONArray responseJson = json.getJSONArray("response");
 		JSONObject intJson1 = (JSONObject) responseJson.get(0);
 		JSONObject leagueJson = (JSONObject) intJson1.get("league");// league 선택
 		JSONArray standingsJson = (JSONArray) leagueJson.get("standings");// standings 배열
 		JSONArray intJson2 = (JSONArray) standingsJson.get(0);
-
+	
 		List<StandingsDto> standings = new ArrayList<>();
-
+	
 		// PL 구단 순위
 		for (int i = 0; i < intJson2.length(); i++) {
 			JSONObject intJson3 = (JSONObject) intJson2.get(i); // 순위,팀점수
 			JSONObject teamJson = intJson3.getJSONObject("team"); // 팀명,팀로고
 			JSONObject allJson = intJson3.getJSONObject("all"); // 경기수,성적
-
+	
 			StandingsDto standingsDto = new StandingsDto(intJson3, teamJson, allJson);
 			standings.add(standingsDto);
 		}
-
+			
 		return standings;
+		
 	}
 
 	//지난 경기 일정
