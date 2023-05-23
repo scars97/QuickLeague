@@ -28,7 +28,6 @@ public class PremierLeagueRestController {
 		
 		List<StandingsDto> standings = leagueService.getStandings(leaguId);
 		
-		
 		return standings;
 	}
 	

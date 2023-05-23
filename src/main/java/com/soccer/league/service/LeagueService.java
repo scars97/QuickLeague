@@ -3,6 +3,7 @@ package com.soccer.league.service;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.soccer.league.api.OkHttpConnection;
 import com.soccer.league.api.RestTemplateConnection;
+import com.soccer.league.config.FixturesComparator;
 import com.soccer.league.dto.FixturesDto;
 import com.soccer.league.dto.StandingsDto;
 import com.soccer.league.dto.TopScorersDto;
@@ -22,6 +24,8 @@ import lombok.RequiredArgsConstructor;
 public class LeagueService {
 
 	private final RestTemplateConnection restConnection;
+	private final FixturesComparator fixturesComparator;
+	private final FixturesDto fixturesDto;
 //	private final OkHttpConnection okHttpConnection;
 
 	//구단 순위
@@ -82,6 +86,16 @@ public class LeagueService {
 			FixturesDto fixturesDto = new FixturesDto(fixtureJson, homeJson, awayJson, goalsJson);
 			lastFixtures.add(fixturesDto);
 		}
+		
+		//날짜 오름차순 정렬
+		Collections.sort(lastFixtures, fixturesComparator);
+		
+		for (FixturesDto dateSort : lastFixtures) {
+			List<String> dateResult = fixturesDto.dateFormat(dateSort.getDate());
+			dateSort.setDate(dateResult.get(0));
+			dateSort.setTime(dateResult.get(1));
+		}
+		
 		return lastFixtures;
 	}
 
