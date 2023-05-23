@@ -41,15 +41,6 @@ public class PremierLeagueController {
 		List<FixturesDto> lastFixtures = leagueService.getLastFixtures(leagueId);
 		//List<FixturesDto> nextFixtures = leagueService.getNextFixtures(leagueId);
 		
-		List<String> dateList = new ArrayList<>();
-		
-		for (int i = 0; i < lastFixtures.size(); i++) {
-			String date = lastFixtures.get(i).getDate();
-			dateList.add(date);
-		}
-		
-		Collections.sort(dateList);
-		
 		model.addAttribute("lastfixtures",lastFixtures);
 		//model.addAttribute("nextfixtures",nextFixtures);
 		return "epl/fixtures";

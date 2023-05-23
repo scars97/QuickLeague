@@ -53,7 +53,7 @@ public class RestTemplateConnection {
 
 		LocalDateTime time = LocalDateTime.now();
 
-		String nowTime = time.plusWeeks(1).format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+		String nowTime = time.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 		String lastTime = time.minusWeeks(1).format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
 		URI uri = UriComponentsBuilder
