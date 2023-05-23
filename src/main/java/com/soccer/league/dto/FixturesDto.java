@@ -18,7 +18,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@Component
 public class FixturesDto {
 
 	//경기 날짜, 시간
@@ -44,14 +43,11 @@ public class FixturesDto {
 			JSONObject awayJson,
 			JSONObject goalsJson) throws ParseException {		
 		this.date = fixtureJson.getString("date");
-//		this.time = dateFormat(fixtureJson).get(1);
 		this.homeTeam = homeJson.getString("name");
 		this.awayTeam = awayJson.getString("name");
 		String result = goalsJson.get("home").toString();
-//		int intResult = Integer.parseInt(result);
 		this.homeResult = result;
 		String result2 = goalsJson.get("away").toString();
-//		int intResult2 = Integer.parseInt(result2);
 		this.awayResult = result2;		
 		
 	}
@@ -61,28 +57,8 @@ public class FixturesDto {
 			JSONObject homeJson,
 			JSONObject awayJson) throws ParseException {
 		this.date = fixtureJson.getString("date");
-//		this.time = dateFormat(fixtureJson).get(1);
 		this.homeTeam = homeJson.getString("name");
 		this.awayTeam = awayJson.getString("name");
-	}
-	
-	//날짜 포맷
-	public List<String> dateFormat(String date) throws ParseException {
-		
-		SimpleDateFormat dtFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-		SimpleDateFormat newDtFormat = new SimpleDateFormat("MM.dd. (E)");
-		SimpleDateFormat newTmFormat = new SimpleDateFormat("HH:mm");
-		// String 타입을 Date 타입으로 변환
-		Date formatDate = dtFormat.parse(date);
-		// Date타입의 변수를 새롭게 지정한 포맷으로 변환
-		String returnDate = newDtFormat.format(formatDate);
-		String returnTime = newTmFormat.format(formatDate);
-		
-		List<String> returnList = new ArrayList<>();
-		returnList.add(returnDate);
-		returnList.add(returnTime);
-		
-		return returnList;
 	}
 
 }

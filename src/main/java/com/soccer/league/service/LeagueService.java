@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.soccer.league.api.OkHttpConnection;
 import com.soccer.league.api.RestTemplateConnection;
+import com.soccer.league.config.DateFormatConfig;
 import com.soccer.league.config.FixturesComparator;
 import com.soccer.league.dto.FixturesDto;
 import com.soccer.league.dto.StandingsDto;
@@ -25,7 +26,7 @@ public class LeagueService {
 
 	private final RestTemplateConnection restConnection;
 	private final FixturesComparator fixturesComparator;
-	private final FixturesDto fixturesDto;
+	private final DateFormatConfig dateFormatConfig;
 //	private final OkHttpConnection okHttpConnection;
 
 	//구단 순위
@@ -91,7 +92,7 @@ public class LeagueService {
 		Collections.sort(lastFixtures, fixturesComparator);
 		
 		for (FixturesDto dateSort : lastFixtures) {
-			List<String> dateResult = fixturesDto.dateFormat(dateSort.getDate());
+			List<String> dateResult = dateFormatConfig.dateFormat(dateSort.getDate());
 			dateSort.setDate(dateResult.get(0));
 			dateSort.setTime(dateResult.get(1));
 		}
