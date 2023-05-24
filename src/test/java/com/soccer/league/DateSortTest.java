@@ -13,13 +13,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.soccer.league.api.RestTemplateConnection;
 import com.soccer.league.dto.FixturesDto;
-import com.soccer.league.service.LeagueService;
+import com.soccer.league.service.LeagueServiceImpl;
 
 @SpringBootTest
 public class DateSortTest {
 
 	@Autowired
-	LeagueService leagueService;
+	LeagueServiceImpl leagueService;
 	@Autowired
 	RestTemplateConnection restTemplateConnection;
 

@@ -2,8 +2,7 @@ package com.soccer.league.controller;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Collections;
+
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -47,7 +46,7 @@ public class PremierLeagueController {
 	}
 	
 	@GetMapping("/topscorers/{id}")
-	public String getTopScorers(@PathVariable("id") int leagueId, Model model) {
+	public String getTopScorers(@PathVariable("id") int leagueId, Model model) throws IOException {
 		
 		List<TopScorersDto> topscorers = leagueService.getTopScorers(leagueId);
 		

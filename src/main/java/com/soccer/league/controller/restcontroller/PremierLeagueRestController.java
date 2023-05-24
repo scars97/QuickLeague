@@ -48,7 +48,7 @@ public class PremierLeagueRestController {
 	}
 	
 	@GetMapping("/topscorers/{id}")
-	public List<TopScorersDto> getTopScorers(@PathVariable("id") int leagueId){
+	public List<TopScorersDto> getTopScorers(@PathVariable("id") int leagueId) throws IOException{
 		
 		List<TopScorersDto> topScorers = leagueService.getTopScorers(leagueId);
 		

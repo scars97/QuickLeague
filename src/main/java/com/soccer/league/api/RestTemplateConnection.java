@@ -5,6 +5,7 @@ import java.net.URI;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import org.springframework.context.annotation.Primary;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -15,11 +16,13 @@ import lombok.RequiredArgsConstructor;
 
 @Component
 @RequiredArgsConstructor
-public class RestTemplateConnection {
+@Primary
+public class RestTemplateConnection implements HttpConnectionPolicy{
 
 	private final ApiKey apiKey;
 	private final RestTemplate restTemplate;
 
+	//구단 순위
 	public String standingsConnect(int leagueId) {
 
 		String url = "https://api-football-v1.p.rapidapi.com/";
@@ -104,7 +107,7 @@ public class RestTemplateConnection {
 		return result.getBody();
 	}
 
-	public String topScorers(int leagueId) {
+	public String topScorersConnect(int leagueId) {
 
 		String url = "https://api-football-v1.p.rapidapi.com/";
 		String season = "2022";
