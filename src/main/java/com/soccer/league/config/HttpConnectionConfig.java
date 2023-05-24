@@ -8,6 +8,7 @@ import com.soccer.league.api.ApiKey;
 import com.soccer.league.api.HttpConnectionPolicy;
 import com.soccer.league.api.OkHttpConnection;
 import com.soccer.league.api.RestTemplateConnection;
+import com.soccer.league.service.LeagueService;
 
 import okhttp3.OkHttpClient;
 
@@ -16,9 +17,13 @@ public class HttpConnectionConfig {
 
 	@Bean
 	public HttpConnectionPolicy httpConnectionPolicy() {
-		System.out.println("HttpConnectionConfig.RestTemplate을 사용중이야");
-		return new RestTemplateConnection(new ApiKey(), restTemplate());
-//		return new OkHttpConnection(new ApiKey(), new OkHttpClient());
+		return new RestTemplateConnection(apiKey(), restTemplate());
+//		return new OkHttpConnection(apiKey(), okHttpClient());
+	}
+	
+	@Bean
+	public ApiKey apiKey() {
+		return new ApiKey();
 	}
 	
 	@Bean

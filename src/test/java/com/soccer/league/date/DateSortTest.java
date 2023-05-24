@@ -1,4 +1,4 @@
-package com.soccer.league;
+package com.soccer.league.date;
 
 import java.io.IOException;
 import java.text.ParseException;

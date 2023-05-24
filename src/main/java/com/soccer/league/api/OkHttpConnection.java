@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
 
 import lombok.RequiredArgsConstructor;
 import okhttp3.OkHttpClient;
@@ -31,9 +32,9 @@ public class OkHttpConnection implements HttpConnectionPolicy{
 		
 		try(Response response = client.newCall(request).execute()){
 			String result = response.body().string();
-			response.close();
-			
+			response.close();		
 			return result;
+			
 		}
 	}
 	
@@ -87,5 +88,14 @@ public class OkHttpConnection implements HttpConnectionPolicy{
 			response.close();
 			return result;
 		}	
+	}
+	
+	//Singleton Test
+	public ApiKey getApiKey() {
+		return apiKey;
+	}
+		
+	public OkHttpClient getOkHttpClient() {
+		return client;
 	}
 }

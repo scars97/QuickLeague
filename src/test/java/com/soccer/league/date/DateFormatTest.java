@@ -1,4 +1,4 @@
-package com.soccer.league;
+package com.soccer.league.date;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

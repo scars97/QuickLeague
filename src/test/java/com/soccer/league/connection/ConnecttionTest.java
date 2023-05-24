@@ -1,4 +1,4 @@
-package com.soccer.league;
+package com.soccer.league.connection;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

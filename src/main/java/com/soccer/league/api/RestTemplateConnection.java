@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 @Component
@@ -130,5 +131,14 @@ public class RestTemplateConnection implements HttpConnectionPolicy{
 		ResponseEntity<String> result = restTemplate.exchange(req, String.class);
 
 		return result.getBody();
+	}
+	
+	//Singleton Test
+	public ApiKey getApiKey() {
+		return apiKey;
+	}
+	
+	public RestTemplate getRestTemplate() {
+		return restTemplate;
 	}
 }
