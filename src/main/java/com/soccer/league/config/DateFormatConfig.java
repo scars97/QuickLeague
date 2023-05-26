@@ -8,7 +8,6 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-@Component
 public class DateFormatConfig {
 
 	// 날짜 포맷

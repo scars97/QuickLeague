@@ -4,9 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Import;
 
-import com.soccer.league.config.HttpConnectionConfig;
+import com.soccer.league.config.AppConfig;
 
-@Import(HttpConnectionConfig.class)
+@Import(AppConfig.class)
 @SpringBootApplication
 public class SoccerApplication {
 

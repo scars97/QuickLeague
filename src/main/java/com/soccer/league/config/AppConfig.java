@@ -9,11 +9,27 @@ import com.soccer.league.api.HttpConnectionPolicy;
 import com.soccer.league.api.OkHttpConnection;
 import com.soccer.league.api.RestTemplateConnection;
 import com.soccer.league.service.LeagueService;
+import com.soccer.league.service.LeagueServiceImpl;
 
 import okhttp3.OkHttpClient;
 
 @Configuration
-public class HttpConnectionConfig {
+public class AppConfig {
+	
+	@Bean
+	public LeagueService leagueService() {
+		return new LeagueServiceImpl(httpConnectionPolicy(), fixturesComparator(), dateFormatConfig());
+	}
+	
+	@Bean
+	public FixturesComparator fixturesComparator() {
+		return new FixturesComparator();
+	}
+	
+	@Bean
+	public DateFormatConfig dateFormatConfig() {
+		return new DateFormatConfig();
+	}
 
 	@Bean
 	public HttpConnectionPolicy httpConnectionPolicy() {

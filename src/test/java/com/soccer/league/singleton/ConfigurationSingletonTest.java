@@ -11,7 +11,7 @@ import org.springframework.web.client.RestTemplate;
 import com.soccer.league.api.ApiKey;
 import com.soccer.league.api.OkHttpConnection;
 import com.soccer.league.api.RestTemplateConnection;
-import com.soccer.league.config.HttpConnectionConfig;
+import com.soccer.league.config.AppConfig;
 
 import okhttp3.OkHttpClient;
 
@@ -20,7 +20,7 @@ public class ConfigurationSingletonTest {
 
 	@Test
 	void restConfigTset() {
-		ApplicationContext ac = new AnnotationConfigApplicationContext(HttpConnectionConfig.class);
+		ApplicationContext ac = new AnnotationConfigApplicationContext(AppConfig.class);
 		
 		RestTemplateConnection restConnect = ac.getBean("httpConnectionPolicy", RestTemplateConnection.class);
 		ApiKey apiKey = ac.getBean("apiKey", ApiKey.class);
@@ -40,7 +40,7 @@ public class ConfigurationSingletonTest {
 	
 	//@Test
 	void okHttpConfigTset() {
-		ApplicationContext ac = new AnnotationConfigApplicationContext(HttpConnectionConfig.class);
+		ApplicationContext ac = new AnnotationConfigApplicationContext(AppConfig.class);
 		
 		OkHttpConnection okConnect = ac.getBean("httpConnectionPolicy", OkHttpConnection.class);
 		ApiKey apiKey = ac.getBean("apiKey", ApiKey.class);
