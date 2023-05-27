@@ -21,17 +21,17 @@ public class AppConfig {
 		return new LeagueServiceImpl(httpConnectionPolicy(), fixturesComparator(), dateFormatConfig());
 	}
 	
-	@Bean
+	@Bean //날짜 순서 정렬
 	public FixturesComparator fixturesComparator() {
 		return new FixturesComparator();
 	}
 	
-	@Bean
+	@Bean // 날짜 폼 정렬
 	public DateFormatConfig dateFormatConfig() {
 		return new DateFormatConfig();
 	}
 
-	@Bean
+	@Bean // Connection 정책
 	public HttpConnectionPolicy httpConnectionPolicy() {
 		return new RestTemplateConnection(apiKey(), restTemplate());
 //		return new OkHttpConnection(apiKey(), okHttpClient());
