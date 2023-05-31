@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import com.soccer.league.dto.FixturesDto;
 
+@Component
 public class FixturesComparator implements Comparator<FixturesDto>{
 
 	@Override

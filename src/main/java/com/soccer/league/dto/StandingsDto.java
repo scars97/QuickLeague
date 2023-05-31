@@ -3,6 +3,7 @@ package com.soccer.league.dto;
 import org.json.JSONObject;
 
 import lombok.Getter;
+import lombok.ToString;
 
 @Getter
 public class StandingsDto {

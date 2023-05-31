@@ -8,6 +8,7 @@ import com.soccer.league.api.ApiKey;
 import com.soccer.league.api.HttpConnectionPolicy;
 import com.soccer.league.api.OkHttpConnection;
 import com.soccer.league.api.RestTemplateConnection;
+import com.soccer.league.service.JsonParser;
 import com.soccer.league.service.LeagueService;
 import com.soccer.league.service.LeagueServiceImpl;
 
@@ -18,17 +19,12 @@ public class AppConfig {
 	
 	@Bean
 	public LeagueService leagueService() {
-		return new LeagueServiceImpl(httpConnectionPolicy(), fixturesComparator(), dateFormatConfig());
+		return new LeagueServiceImpl(httpConnectionPolicy(), jsonParser());
 	}
 	
-	@Bean //날짜 순서 정렬
-	public FixturesComparator fixturesComparator() {
-		return new FixturesComparator();
-	}
-	
-	@Bean // 날짜 폼 정렬
-	public DateFormatConfig dateFormatConfig() {
-		return new DateFormatConfig();
+	@Bean
+	public JsonParser jsonParser() {
+		return new JsonParser(new FixturesComparator());
 	}
 
 	@Bean // Connection 정책
