@@ -2,9 +2,7 @@ package com.soccer.league.api;
 
 import java.io.IOException;
 
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestTemplate;
 
 import lombok.RequiredArgsConstructor;
 import okhttp3.OkHttpClient;
@@ -23,11 +21,11 @@ public class OkHttpConnection implements HttpConnectionPolicy{
 	public String standingsConnect(int leagueId) throws IOException {
 	
 		Request request = new Request.Builder()
-				.url("https://api-football-v1.p.rapidapi.com/v3/standings?league=" + 
-						leagueId + "&season=2022")
+				.url(apiKey.getApiUri() + "v3/standings?league=" 
+					+ leagueId + "&season=2022")
 				.get()
 				.addHeader("X-RapidAPI-Key", apiKey.getApiKey())
-				.addHeader("X-RapidAPI-Host", "api-football-v1.p.rapidapi.com")
+				.addHeader("X-RapidAPI-Host", apiKey.getApiHost())
 				.build();
 		
 		try(Response response = client.newCall(request).execute()){
@@ -42,11 +40,11 @@ public class OkHttpConnection implements HttpConnectionPolicy{
 	public String lastFixturesConnect(int leagueId) throws IOException {
 
 		Request request = new Request.Builder()
-			.url("https://api-football-v1.p.rapidapi.com/v3/fixtures?league=" +
-					leagueId + "&season=2022&from=2023-05-06&to=2023-05-14&timezone=Asia%2Fseoul")
+			.url(apiKey.getApiUri() + "v3/fixtures?league=" 
+				+ leagueId + "&season=2022&from=2023-05-06&to=2023-05-14&timezone=Asia%2Fseoul")
 			.get()
 			.addHeader("X-RapidAPI-Key", apiKey.getApiKey())
-			.addHeader("X-RapidAPI-Host", "api-football-v1.p.rapidapi.com")
+			.addHeader("X-RapidAPI-Host", apiKey.getApiHost())
 			.build();
 
 		try(Response response = client.newCall(request).execute()){
@@ -59,11 +57,11 @@ public class OkHttpConnection implements HttpConnectionPolicy{
 	public String nextFixturesConnect(int leagueId) throws IOException {
 
 		Request request = new Request.Builder()
-			.url("https://api-football-v1.p.rapidapi.com/v3/fixtures?league=" +
-					leagueId + "next=10&timezone=Asia%2Fseoul")
+			.url(apiKey.getApiUri() + "v3/fixtures?league=" 
+				+ leagueId + "next=10&timezone=Asia%2Fseoul")
 			.get()
 			.addHeader("X-RapidAPI-Key", apiKey.getApiKey())
-			.addHeader("X-RapidAPI-Host", "api-football-v1.p.rapidapi.com")
+			.addHeader("X-RapidAPI-Host", apiKey.getApiHost())
 			.build();
 
 		try(Response response = client.newCall(request).execute()){
@@ -76,11 +74,11 @@ public class OkHttpConnection implements HttpConnectionPolicy{
 	public String topScorersConnect(int leagueId) throws IOException {
 
 		Request request = new Request.Builder()
-			.url("https://api-football-v1.p.rapidapi.com/v3/fixtures?league=" +
-					leagueId + "&season=2022")
+			.url(apiKey.getApiUri() + "v3/fixtures?league=" 
+				+ leagueId + "&season=2022")
 			.get()
 			.addHeader("X-RapidAPI-Key", apiKey.getApiKey())
-			.addHeader("X-RapidAPI-Host", "api-football-v1.p.rapidapi.com")
+			.addHeader("X-RapidAPI-Host", apiKey.getApiHost())
 			.build();
 
 		try(Response response = client.newCall(request).execute()){

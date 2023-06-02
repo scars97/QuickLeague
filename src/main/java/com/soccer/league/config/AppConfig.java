@@ -8,7 +8,7 @@ import com.soccer.league.api.ApiKey;
 import com.soccer.league.api.HttpConnectionPolicy;
 import com.soccer.league.api.OkHttpConnection;
 import com.soccer.league.api.RestTemplateConnection;
-import com.soccer.league.service.JsonParser;
+import com.soccer.league.json.JsonParser;
 import com.soccer.league.service.LeagueService;
 import com.soccer.league.service.LeagueServiceImpl;
 

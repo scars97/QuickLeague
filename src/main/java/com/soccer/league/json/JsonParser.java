@@ -1,4 +1,4 @@
-package com.soccer.league.service;
+package com.soccer.league.json;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

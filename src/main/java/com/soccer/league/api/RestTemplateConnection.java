@@ -22,15 +22,14 @@ public class RestTemplateConnection implements HttpConnectionPolicy{
 
 	private final ApiKey apiKey;
 	private final RestTemplate restTemplate;
+	
+	int season = 2022;
 
 	//구단 순위
 	public String standingsConnect(int leagueId) {
 
-		String url = "https://api-football-v1.p.rapidapi.com/";
-		int season = 2022;
-
 		URI uri = UriComponentsBuilder
-				.fromHttpUrl(url)
+				.fromHttpUrl(apiKey.getApiUri())
 				.path("v3/standings")
 				.queryParam("league", leagueId)
 				.queryParam("season", season)
@@ -41,7 +40,7 @@ public class RestTemplateConnection implements HttpConnectionPolicy{
 		RequestEntity<Void> req = RequestEntity
 				.get(uri)
 				.header("X-RapidAPI-Key", apiKey.getApiKey())
-				.header("X-RapidAPI-Host", "api-football-v1.p.rapidapi.com")
+				.header("X-RapidAPI-Host", apiKey.getApiHost())
 				.build();
 
 		ResponseEntity<String> result = restTemplate.exchange(req, String.class);
@@ -52,16 +51,13 @@ public class RestTemplateConnection implements HttpConnectionPolicy{
 	// 경기 일정
 	public String lastFixturesConnect(int leagueId) throws IOException {
 
-		String url = "https://api-football-v1.p.rapidapi.com/";
-		int season = 2022;
-
 		LocalDateTime time = LocalDateTime.now();
 
 		String nowTime = time.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 		String lastTime = time.minusWeeks(1).format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
 		URI uri = UriComponentsBuilder
-				.fromHttpUrl(url)
+				.fromHttpUrl(apiKey.getApiUri())
 				.path("v3/fixtures")
 				.queryParam("league", leagueId)
 				.queryParam("season", season)
@@ -75,7 +71,7 @@ public class RestTemplateConnection implements HttpConnectionPolicy{
 		RequestEntity<Void> req = RequestEntity
 				.get(uri)
 				.header("X-RapidAPI-Key", apiKey.getApiKey())
-				.header("X-RapidAPI-Host", "api-football-v1.p.rapidapi.com")
+				.header("X-RapidAPI-Host", apiKey.getApiHost())
 				.build();
 		
 		ResponseEntity<String> result = restTemplate.exchange(req, String.class);
@@ -85,10 +81,8 @@ public class RestTemplateConnection implements HttpConnectionPolicy{
 
 	public String nextFixturesConnect(int leagueId) throws IOException {
 
-		String url = "https://api-football-v1.p.rapidapi.com/";
-
 		URI uri = UriComponentsBuilder
-				.fromHttpUrl(url)
+				.fromHttpUrl(apiKey.getApiUri())
 				.path("v3/fixtures")
 				.queryParam("league", leagueId)
 				.queryParam("next", 10)
@@ -100,7 +94,7 @@ public class RestTemplateConnection implements HttpConnectionPolicy{
 		RequestEntity<Void> req = RequestEntity
 				.get(uri)
 				.header("X-RapidAPI-Key", apiKey.getApiKey())
-				.header("X-RapidAPI-Host", "api-football-v1.p.rapidapi.com")
+				.header("X-RapidAPI-Host", apiKey.getApiHost())
 				.build();
 
 		ResponseEntity<String> result = restTemplate.exchange(req, String.class);
@@ -109,12 +103,9 @@ public class RestTemplateConnection implements HttpConnectionPolicy{
 	}
 
 	public String topScorersConnect(int leagueId) {
-
-		String url = "https://api-football-v1.p.rapidapi.com/";
-		String season = "2022";
 		
 		URI uri = UriComponentsBuilder
-				.fromHttpUrl(url)
+				.fromHttpUrl(apiKey.getApiUri())
 				.path("v3/players/topscorers")
 				.queryParam("league", leagueId)
 				.queryParam("season", season)
@@ -125,7 +116,7 @@ public class RestTemplateConnection implements HttpConnectionPolicy{
 		RequestEntity<Void> req = RequestEntity
 				.get(uri)
 				.header("X-RapidAPI-Key", apiKey.getApiKey())
-				.header("X-RapidAPI-Host", "api-football-v1.p.rapidapi.com")
+				.header("X-RapidAPI-Host", apiKey.getApiHost())
 				.build();
 
 		ResponseEntity<String> result = restTemplate.exchange(req, String.class);
@@ -134,11 +125,8 @@ public class RestTemplateConnection implements HttpConnectionPolicy{
 	}
 	
 	//Singleton Test
-	public ApiKey getApiKey() {
-		return apiKey;
-	}
-	
-	public RestTemplate getRestTemplate() {
-		return restTemplate;
-	}
+	public ApiKey getApiKey() { return apiKey; }
+	 
+	public RestTemplate getRestTemplate() { return restTemplate; }
+
 }

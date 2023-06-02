@@ -9,6 +9,7 @@ import com.soccer.league.api.HttpConnectionPolicy;
 import com.soccer.league.dto.FixturesDto;
 import com.soccer.league.dto.StandingsDto;
 import com.soccer.league.dto.TopScorersDto;
+import com.soccer.league.json.JsonParser;
 
 import lombok.RequiredArgsConstructor;
 
